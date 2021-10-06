@@ -1,6 +1,20 @@
 module.exports = {
     studentList: [{
-        id: 'gwsgfsd',
+        id: 'hsfdaf',
+        name: 'Pedro Paulo',
+        surname: 'Pedreira Polinário',
+        birth: '10/04/2002',
+        address: 'Rua das flores nº 915'
+    }, 
+    {
+        id: 'hgfga',
+        name: 'Pedro Paulo',
+        surname: 'Pedreira Polinário',
+        birth: '10/04/2002',
+        address: 'Rua das flores nº 915'
+    },
+    {
+        id: 'hjshd',
         name: 'Pedro Paulo',
         surname: 'Pedreira Polinário',
         birth: '10/04/2002',
@@ -11,14 +25,19 @@ module.exports = {
         return this.studentList
     },
 
-    newStudent: function(name, surname, birth, address) {
-        let id = this.generateId()
-        console.log(id)
-        let verifiedId = ''
-        verifiedId = this.verifyId(id)
-        console.log(verifiedId)
+    getStudentIndex: function(id) {
+        return this.studentList.findIndex((student) => {
+            return student.id == id
+        })
+    },
 
-        this.studentList.push({id: verifiedId, name, surname, birth, address})
+    newStudent: function(name, surname, birth, address) {
+        let id = ''
+        while (id == '' || !this.verifyId(id)) {
+            id = this.generateId()
+        }
+
+        this.studentList.push({id, name, surname, birth, address})
     },
 
     deleteStudent: function(id) {
@@ -28,18 +47,12 @@ module.exports = {
     },
 
     generateId: function() {
-        console.log('teste1')
-        return id = Math.random().toString(36).substr(2, 9)
+        return Math.random().toString(36).substr(2, 9)
     },
 
     verifyId: function(id) {
-        this.studentList.forEach((student) => {
-            if (student.id == id) {
-                console.log('teste2')
-                return this.generateId()
-            }
+        return this.studentList.every((student) => {
+            return student.id != id
         })
-        console.log('teste3')
-        return id
     }
 }
