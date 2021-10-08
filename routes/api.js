@@ -2,28 +2,26 @@ const express = require('express')
 const students = require('../students/students')
 const router = express.Router()
 
-router.use(express.urlencoded())
-
 router.get('/all', (req, res) => {
     res.json(JSON.stringify(students.getAll()))
 })
 
-router.post('/new', (req, res) => {
-    let name = req.body.name
-    let surname = req.body.surname
-    let birth = req.body.birth
-    let address = req.body.address
+router.post('/student', express.json(), (req, res) => {
+    let index = students.getStudentIndex(req.body.id)
+    let student = students.getOne(index)
+    res.json(JSON.stringify(student))
+})
+
+router.post('/new', express.json(), (req, res) => {
+    const { name, surname, birth, address } = req.body
 
     students.newStudent(name, surname, birth, address)
+
     res.send('Estudante adicionado')
 })
 
-router.put('/att', (req, res) => {
-    let id = req.body.id
-    let newName = req.body.newName
-    let newSurname = req.body.newSurname
-    let newBirth = req.body.newBirth
-    let newAddress = req.body.newAddress
+router.put('/att', express.json(), (req, res) => {
+    const { id, newName, newSurname, newBirth, newAddress } = req.body
     let studentIndex = students.getStudentIndex(id)
     let studentList = students.getAll()
 
@@ -35,7 +33,7 @@ router.put('/att', (req, res) => {
     res.send('Aluno atualizado')
 })
 
-router.delete('/del', (req, res) => {
+router.delete('/del', express.json(), (req, res) => {
     let id = req.body.id
 
     students.deleteStudent(id)

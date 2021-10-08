@@ -3,26 +3,30 @@ module.exports = {
         id: 'hsfdaf',
         name: 'Pedro Paulo',
         surname: 'Pedreira Polinário',
-        birth: '10/04/2002',
+        birth: '2002-04-10',
         address: 'Rua das flores nº 915'
     }, 
     {
         id: 'hgfga',
         name: 'Pedro Paulo',
         surname: 'Pedreira Polinário',
-        birth: '10/04/2002',
+        birth: '2002-04-10',
         address: 'Rua das flores nº 915'
     },
     {
         id: 'hjshd',
         name: 'Pedro Paulo',
         surname: 'Pedreira Polinário',
-        birth: '10/04/2002',
+        birth: '2002-04-10',
         address: 'Rua das flores nº 915'
     }],
 
     getAll: function() {
         return this.studentList
+    },
+
+    getOne: function(index) {
+        return this.studentList[index]
     },
 
     getStudentIndex: function(id) {
