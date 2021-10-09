@@ -12,6 +12,9 @@ function updateStudents() {
         let studentList = JSON.parse(students)
         let studentElements = ''
         studentList.forEach(student => {
+            let year = student.birth.slice(0, 4)
+            let month = student.birth.slice(5, 7)
+            let day = student.birth.slice(8, )
             
             let studentElement = `<div id="container_${student.id}">
             <div id="student_${student.id}" class="card accordion-item mb-3">
@@ -19,8 +22,11 @@ function updateStudents() {
                 <h4 class="card-tittle">${student.name} ${student.surname}</h4>
             </div>
             <div id="cardBody${student.id}" class="card-body accordion-body accordion-collapse collapse" data-bs-parent="#studentList">
-                <p>Data de nascimento: ${student.birth}</p>
-                <p>Endereço: ${student.address}</p>
+                <p><strong>Nome</strong>: ${student.name}</p>
+                <p><strong>Sobrenome</strong>: ${student.surname}</p>
+                <p><strong>Registro do aluno</strong>: ${student.id}</p>
+                <p><strong>Data de nascimento</strong>: ${day}/${month}/${year}</p>
+                <p><strong>Endereço</strong>: ${student.address}</p>
             </div>
             <div class="card-footer">
                 <input onclick="attStudent(this)" class="btn btn-info" type="button" value="Atualizar dados">
@@ -43,26 +49,25 @@ function newStudent(obj) {
     let birth = document.getElementById('birth').value
     let address = document.getElementById('address').value
 
-    const options = {
-                    method: 'POST',
-                    headers: new Headers({'content-type': 'application/json'}),
-                    body: JSON.stringify({name, surname, birth, address})
-    }
+    if (name == '' || name.length < 3 || surname == '' || surname.length < 3 || birth == '' || address == '' || address.length < 3) {
+        alert('Valor(es) pequeno(s) demais ou em branco, por favor preencher todos os dados!')
+    } else {
+        const options = {
+            method: 'POST',
+            headers: new Headers({'content-type': 'application/json'}),
+            body: JSON.stringify({name, surname, birth, address})
+        }
 
-    fetch('http://localhost:8000/api/new', options).then(res => {
+        fetch('http://localhost:8000/api/new', options).then(res => {
         console.log(res)
         updateStudents()
         document.getElementById('name').value = ''
         document.getElementById('surname').value = ''
         document.getElementById('birth').value = ''
         document.getElementById('address').value = ''
-    }
-    )
-}
-
-function tempId(obj) {
-    let id = obj.parentElement.parentElement.id.substr(8,)
-    localStorage.setItem('tempId', id)
+        }
+        )
+    }    
 }
 
 function delStudent(obj) {
@@ -137,4 +142,9 @@ function saveData(obj) {
         console.log(res)
         updateStudents()
     })
+}
+
+function tempId(obj) {
+    let id = obj.parentElement.parentElement.id.substr(8,)
+    localStorage.setItem('tempId', id)
 }
