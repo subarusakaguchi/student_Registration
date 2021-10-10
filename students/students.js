@@ -1,25 +1,5 @@
 module.exports = {
-    studentList: [{
-        id: 'hsfdaf',
-        name: 'Pedro Paulo',
-        surname: 'Pedreira Polinário',
-        birth: '2002-04-10',
-        address: 'Rua das flores nº 915'
-    }, 
-    {
-        id: 'hgfga',
-        name: 'Pedro Paulo',
-        surname: 'Pedreira Polinário',
-        birth: '2002-04-10',
-        address: 'Rua das flores nº 915'
-    },
-    {
-        id: 'hjshd',
-        name: 'Pedro Paulo',
-        surname: 'Pedreira Polinário',
-        birth: '2002-04-10',
-        address: 'Rua das flores nº 915'
-    }],
+    studentList: [],
 
     getAll: function() {
         return this.studentList
